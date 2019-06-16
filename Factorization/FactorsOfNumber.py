@@ -4,6 +4,7 @@ __maintainer__ = "Surya Pratap Singh"
 __email__ = "surya1.singh@gmail.com"
 
 import datetime
+from sieve_of_eratosthenes import soe
 
 def trial_division(num):
     if num < 0:
@@ -45,6 +46,20 @@ def prime_factorization(num):
             break
     return solution
 
+def prime_factorization_using_soe(num):
+    "return all prime factors of number with count"
+    solution = []
+    primes = soe(num//2+1)
+    for i in primes:
+        ct = 0
+        while num%i == 0:
+            num = num//i
+            ct += 1
+        if ct:
+            solution.append([i,ct])
+        if num == 1:
+            break
+    return solution
 
 
 
@@ -74,4 +89,13 @@ if __name__ == "__main__":
     print(prime_factorization(1282))
     print(prime_factorization(12312425))
     print(prime_factorization(198632728))
+    print("total microseconds prime_factorization: ", (datetime.datetime.now()-st).microseconds)
+
+    st = datetime.datetime.now()
+    print(prime_factorization_using_soe(1))
+    print(prime_factorization_using_soe(2))
+    print(prime_factorization_using_soe(10))
+    print(prime_factorization_using_soe(1282))
+    print(prime_factorization_using_soe(12312425))
+    print(prime_factorization_using_soe(198632728))
     print("total microseconds prime_factorization: ", (datetime.datetime.now()-st).microseconds)
